@@ -22,6 +22,7 @@ import Login from './container/login/login'
 import Register from './container/register/register'
 import Student from './container/studentPage/studentPage'
 import Teacher from './container/teacherPage/teacherPage'
+import './index.css'
 
 const store = createStore(reducers, compose(
     applyMiddleware(thunk),

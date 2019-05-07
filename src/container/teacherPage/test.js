@@ -74,14 +74,14 @@ class Test extends React.Component {
 						style={ { width: 90, marginRight: 8 } }
 					>
 						Search
-        </Button>
+        			</Button>
 					<Button
 						onClick={ () => this.handleReset(clearFilters) }
 						size="small"
 						style={ { width: 90 } }
 					>
 						Reset
-        </Button>
+        			</Button>
 				</div>
 			),
 		filterIcon: filtered => <Icon type="search" style={ { color: filtered ? '#1890ff' : undefined } } />,
@@ -127,37 +127,11 @@ class Test extends React.Component {
 				});
 			}
 		}
-		console.log(data, '处理后的表格data',columns)
+		// console.log(data, '处理后的表格data',columns)
 		return (
-			<div>
+			<div style={ { margin: 20 } }>
 				{ redirect && redirect !== path ? <Redirect to={ this.props.redirectTo }></Redirect> : null }
-				<h2>Test PAGE</h2>
 				<Table columns={ columns } dataSource={ data } />;
-
-				{/* <Row gutter={ 16 }>
-					{ (this.props.testList) ?
-						(this.props.testList.map((v, index) => (
-							v ?
-								(<Col span={ 6 } key={ v.testId }>
-									<Card
-										style={ { height: 165, marginTop: 20, minWidth: 130 } }
-										size="small"
-										title={ index }
-										// extra={ <Button onClick={ () => this.gotoDetail(v.testId) }>查看</Button> }
-										extra={
-											<Radio.Group size="small">
-												<Radio.Button onClick={ () => this.gotoDetail(v.testId) }>查看</Radio.Button>
-												<Radio.Button onClick={ () => this.deletePaper(v.testId) }>删除</Radio.Button>
-											</Radio.Group> }
-									>
-										<p style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace: 'nowrap',fontSize:'16px'}}>{ v.testName }</p>
-										<p>测试描述</p>
-									</Card>
-								</Col>) : null)
-						)
-						) : null
-					}
-				</Row> */}
 			</div>
 
 		)

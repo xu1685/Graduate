@@ -128,7 +128,7 @@ class ClassDetail extends React.Component {
         ];
 
         return (
-            <div>
+            <div style={ { margin: 20 } }>
                 { redirect && redirect !== path ? <Redirect to={ this.props.redirectTo }></Redirect> : null }
                 { this.props.classDetail.classData ? <h3>{ this.props.classDetail.classData.className }</h3> : null }
                 <Table columns={ columns } dataSource={ data } />

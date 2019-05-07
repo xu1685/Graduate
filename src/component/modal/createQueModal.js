@@ -46,10 +46,10 @@ class CreateQueForm extends React.Component {
 
   render() {
     const { visible, loading } = this.state;
-
+    const { TextArea } = Input;
     return (
       <div>
-        <Button style={{float:'right',zIndex:'1'}} type="primary" onClick={ this.showModal }>
+        <Button style={{float:'right',zIndex:'1',margin:'10px'}} type="primary" onClick={ this.showModal }>
           新增题目
         </Button>
         <Modal
@@ -65,27 +65,32 @@ class CreateQueForm extends React.Component {
           ] }
         >
           <List>
-            <Input
+            <TextArea
+            autosize 
               prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
               placeholder="题目内容"
               onChange={ e => this.handleChange('content', e.target.value) } />
             <Divider></Divider>
-            <Input
+            <TextArea
+            autosize 
               style={{marginBottom:10}}
               prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
               placeholder="optionA"
               onChange={ e => this.handleChange('optionA', e.target.value) } />
-            <Input
+            <TextArea
+            autosize 
               style={{marginBottom:10}}
               prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
               placeholder="optionB"
               onChange={ e => this.handleChange('optionB', e.target.value) } />
-            <Input
+            <TextArea
+             autosize 
               style={{marginBottom:10}}
               prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
               placeholder="optionC"
               onChange={ e => this.handleChange('optionC', e.target.value) } />
-            <Input
+            <TextArea
+             autosize 
               prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
               placeholder="optionD"
               onChange={ e => this.handleChange('optionD', e.target.value) } />

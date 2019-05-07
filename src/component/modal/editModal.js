@@ -87,7 +87,7 @@ class EditModal extends React.Component {
 
     render() {
         let { loading, formData } = this.state;
-
+        const { TextArea } = Input;
         return (
             <div>
                 <Modal
@@ -106,34 +106,39 @@ class EditModal extends React.Component {
                     ] }
                 >
                     <List>
-                        <Input
+                        <TextArea
+                        autosize 
                             prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
                             placeholder="题目内容"
                             onChange={ e => this.handleChange('content', e.target.value) }
                             value={ formData.content } />
                         <Divider></Divider>
-                        <Input
+                        <TextArea
+                        autosize 
                             style={ { marginBottom: 10 } }
                             prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
                             placeholder="optionA"
                             onChange={ e => this.handleChange('optionA', e.target.value) }
                             value={ formData.optionA }
                         />
-                        <Input
+                        <TextArea
+                        autosize 
                             style={ { marginBottom: 10 } }
                             prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
                             value={ formData.optionB }
                             placeholder="optionB"
                             onChange={ e => this.handleChange('optionB', e.target.value) }
                         />
-                        <Input
+                        <TextArea
+                        autosize 
                             style={ { marginBottom: 10 } }
                             prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
                             value={ formData.optionC }
                             placeholder="optionC"
                             onChange={ e => this.handleChange('optionC', e.target.value) }
                         />
-                        <Input
+                        <TextArea
+                        autosize 
                             prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } } /> }
                             value={ formData.optionD }
                             placeholder="optionD"

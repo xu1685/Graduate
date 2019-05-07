@@ -74,11 +74,8 @@ class SelectClass extends React.Component {
         }
         return (
             <div>
-                {/* <Button type="primary" onClick={ this.showModal }>
-          新增试卷
-        </Button> */}
                 <Button
-                    style={ { float: 'left', zIndex: '1' } }
+                    style={ { float: 'left', zIndex: '1' ,margin:'10px'} }
                     onClick={ this.showModal }
                 >派发</Button>
                 <Modal

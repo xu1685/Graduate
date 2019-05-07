@@ -27,9 +27,8 @@ class Class extends React.Component{
 		const path = this.props.location.pathname
 		const redirect = this.props.redirectTo
 		return (
-			<div>
+			<div style={ { margin: 20 } }>
 				{redirect&&redirect!==path? <Redirect to={this.props.redirectTo}></Redirect> :null}
-				<h2>Class PAGE</h2>
                 <Row gutter={ 16 }>
                     { (this.props.classList) ?
                         (this.props.classList.map((v, index) => (

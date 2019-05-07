@@ -46,10 +46,9 @@ class PaperDetail extends React.Component {
         const redirect = this.props.redirectTo
         // console.log(this.props,'paperdetail')
         return (
-            <div>
+            <div style={ { margin: 20 } }>
                 { redirect && redirect !== path ? <Redirect to={ this.props.redirectTo }></Redirect> : null }
-                <h2>PAPER detail</h2>
-                <Button onClick={ this.handleAddQue } style={ { float: 'left', zIndex: '1' } }>添加题目</Button>
+                <Button onClick={ this.handleAddQue } style={ { float: 'left', zIndex: '1' ,margin:'10px'} }>添加题目</Button>
                 <SelectClass></SelectClass>
                 <QueTable id={ this.state.paperId }></QueTable>
                 <EditModal></EditModal>

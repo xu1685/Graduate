@@ -46,7 +46,6 @@ class Paper extends React.Component {
         return (
             <div style={ { margin: 20 } }>
                 { redirect && redirect !== path ? <Redirect to={ this.props.redirectTo }></Redirect> : null }
-                <h2>PAPER PAGE</h2>
                 {/* 新建 */ }
                 <CreatePaperForm></CreatePaperForm>
                 {/* card列表 */ }

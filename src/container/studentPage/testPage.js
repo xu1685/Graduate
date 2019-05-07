@@ -2,12 +2,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect, Route } from 'react-router-dom'
-import { getTestPage } from '../../redux/student.redux'
-import { Pagination, Card, List } from 'antd';
+import { getTestPage,postAnswer } from '../../redux/student.redux'
+import { Pagination, Card, List,Button } from 'antd';
 
 @connect(
     state => state.student,
-    { getTestPage }
+    { getTestPage,postAnswer }
 )
 class TestPage extends React.Component {
     constructor(props) {
@@ -15,15 +15,16 @@ class TestPage extends React.Component {
         this.state = {
             title: '',
             current: 1,
-            pageSize: ['1', '20']
+            pageSize: ['1', '20'],
+            answerArr:[]
         }
-        this.onShowSizeChange = this.onShowSizeChange.bind(this)
         this.onChange = this.onChange.bind(this)
         this.handleSelct = this.handleSelct.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     onChange = (page) => {
-        console.log(page);
+        // console.log(page);
         this.setState({
             current: page,
         });
@@ -38,15 +39,42 @@ class TestPage extends React.Component {
             testId: id
         })
     }
-    onShowSizeChange(current, pageSize) {
-        console.log(current, pageSize);
-    }
+    
     handleSelct(answer){
-        console.log(answer,'answer')
+        // console.log(answer,'answer')
+        let arr = this.state.answerArr
+        let index = this.state.current - 1
+        arr[index] = answer.toLowerCase()
+        console.log(arr,'arr')
+        // if(index+1 < this.props.testData.queData.length){
+            this.setState({answerArr:arr,current:index+2})
+        // }
     }
-
+    handleSubmit(){
+        let arr = this.state.answerArr
+        let queData = this.props.testData.queData
+        let empty = []
+        for(let i=0;i<queData.length;i++){
+            if(!arr[i]){
+                empty.push(i+1)
+            }
+        }
+        if(!empty.length && arr.length == queData.length){
+            let postData = {
+                stuId:this.props.testData.stuId,
+                testId:this.props.testData.testId,
+                paperId:this.props.testData.paperId,
+                content:arr.join(',')
+            }
+            this.props.postAnswer(postData)
+            console.log('no empty')
+        }else{
+            let str = empty.join(',')
+            alert('第'+str+'题尚未选择答案，请选择答案')
+        }
+    }
     render() {
-        console.log('testpage', this.props)
+        // console.log('testpage', this.props)
         const path = this.props.location.pathname
         const redirect = this.props.redirectTo
         let queData = this.props.testData.queData ? this.props.testData.queData : []
@@ -73,14 +101,15 @@ class TestPage extends React.Component {
             }
             options.push(arr)
         }
-        console.log(options, 'options')
+        // console.log(options, 'options')
         let currentQue = this.state.current
         return (
-            <div>
+            <div style={ { margin: 20 } }>
                 { redirect && redirect !== path ? <Redirect to={ this.props.redirectTo }></Redirect> : null }
                 <h2>testdetailPage</h2>
+                <Button onClick={this.handleSubmit}>提交</Button>
                 { queData[currentQue - 1] ? (
-                    <div style={ { background: '#ECECEC', padding: '30px', margin: '20px' } }>
+                    <div style={ { background: '#ECECEC', padding: '30px' } }>
                         <Card title={ '第' + currentQue + '题' } bordered={ false } >
                             <p>{ queData[currentQue - 1].content }</p>
                         </Card>
@@ -101,12 +130,10 @@ class TestPage extends React.Component {
                     </div>
                 ) : null }
                 <Pagination
-                    pageSizeOptions={ this.state.pageSize }
+                    // pageSizeOptions={ this.state.pageSize }
                     defaultPageSize={ 1 }
                     current={ this.state.current }
                     onChange={ this.onChange }
-                    showSizeChanger
-                    onShowSizeChange={ this.onShowSizeChange }
                     total={ queData.length } />
 
             </div>

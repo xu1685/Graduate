@@ -19,7 +19,7 @@ class Tags extends React.Component {
     }
     handleChange(value) {
         console.log(`selected ${value}`);
-        this.props.getAllQue({keyword:value})
+        this.props.getAllQue({keyword:value,paperId:this.props.nowPaperId})
     }
     handleGetTags() {
       this.props.getAllTags()
@@ -43,7 +43,7 @@ class Tags extends React.Component {
                 <Select
                     mode="multiple"
                     style={ { width: '100%' } }
-                    placeholder="Tags Mode"
+                    placeholder="选择题目标签"
                     onChange={ this.handleChange }
                     onFocus={this.handleGetTags}
                 >

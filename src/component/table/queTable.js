@@ -195,7 +195,7 @@ class QueTable extends React.Component {
                 { this.props.isAllQue == true ? (
                     <span>
                         { this.props.nowPaperId !== -1 ? (<Button
-                            style={ { float: 'left', zIndex: '1' } }
+                            style={ { float: 'left', zIndex: '1',margin:'10px' } }
                             onClick={ this.add }
                             disabled={ !hasSelected }
                             loading={ loading }
@@ -204,7 +204,7 @@ class QueTable extends React.Component {
                         </Button>) : null }
                         
                         <Button
-                            style={ { float: 'left', zIndex: '1' } }
+                            style={ { float: 'left', zIndex: '1',margin:'10px' } }
                             onClick={ this.deleteConfirm }
                             disabled={ !hasSelected }
                         >删除所选</Button>
@@ -214,7 +214,7 @@ class QueTable extends React.Component {
 
                 { this.props.isAllQue == false ? (
                     <Button
-                        style={ { float: 'left', zIndex: '1' } }
+                        style={ { float: 'left', zIndex: '1' ,margin:'10px'} }
                         onClick={ this.queOut }
                         disabled={ !hasSelected }>删除所选</Button>
                 ) : null }

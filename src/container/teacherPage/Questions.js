@@ -45,9 +45,8 @@ class Questions extends React.Component {
         const redirect = this.props.redirectTo
         // console.log(this.props,'QueTable')
         return (
-            <div>
+            <div style={ { margin: 20 } }>
                 { redirect && redirect !== path ? <Redirect to={ this.props.redirectTo }></Redirect> : null }
-                <h2>QueTable</h2>
                 <Tags></Tags>
                 <QueTable></QueTable>
                 <EditModal></EditModal>
