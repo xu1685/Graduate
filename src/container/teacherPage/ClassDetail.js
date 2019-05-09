@@ -105,8 +105,8 @@ class ClassDetail extends React.Component {
             let studentData = this.props.classDetail.studentData
             for (let i = 0; i < studentData.length; i++) {
                 data.push({
-                    key: studentData[i].stuId,
-                    name: studentData[i].stuName,
+                    key: studentData[i].username,
+                    name: studentData[i].realname,
                 })
             }
         }
@@ -119,11 +119,11 @@ class ClassDetail extends React.Component {
                 ...this.getColumnSearchProps('name'),
             },
             {
-                title: 'stuId',
+                title: '学号',
                 dataIndex: 'key',
-                key: 'id',
+                key: 'username',
                 width: '30%',
-                ...this.getColumnSearchProps('id'),
+                ...this.getColumnSearchProps('username'),
             },
         ];
 

@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {getClassList,getClassDetail } from '../../redux/teacher.redux'
 import { Radio, Button, Card, Col, Row } from 'antd'
+import UploadClass from '../../component/modal/uploadModal'
 
 @connect(
 	state=>state.teacher,
@@ -29,6 +30,7 @@ class Class extends React.Component{
 		return (
 			<div style={ { margin: 20 } }>
 				{redirect&&redirect!==path? <Redirect to={this.props.redirectTo}></Redirect> :null}
+                <UploadClass></UploadClass>
                 <Row gutter={ 16 }>
                     { (this.props.classList) ?
                         (this.props.classList.map((v, index) => (

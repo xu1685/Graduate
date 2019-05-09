@@ -16,6 +16,7 @@ const UPDATE_PAPER_SUCCESS = 'UPDATE_PAPER_SUCCESS'
 const GET_PAPER_DETAIL_SUCCESS = 'GET_PAPER_DETAIL_SUCCESS'
 const GET_ALLQUE_SUCCESS = 'GET_ALLQUE_SUCCESS'
 const GET_ALLTAGS_SUCCESS = 'GET_ALLTAGS_SUCCESS'
+const CREATE_CLASS_SUCCESS = 'CREATE_QUE_SUCCESS'
 const GET_CLASS_SUCCESS = 'GET_CLASS_SUCCESS'
 const GET_CLASS_NAME_SUCCESS = 'GET_CLASS_NAME_SUCCESS'
 const GET_CLASS_DETAIL_SUCCESS = 'GET_CLASS_DETAIL_SUCCESS'
@@ -93,7 +94,7 @@ export function teacher(state = initState, action) {
                 msg: action.type,
                 // redirectTo: getTeacherRedirectPath('test'),
                 testList: action.payload,
-                loading:false
+                loading: false
             }
         case GET_CLASS_SUCCESS:
             return {
@@ -114,6 +115,13 @@ export function teacher(state = initState, action) {
                 msg: action.type,
                 redirectTo: getTeacherRedirectPath('classDetail', action.payload.classData.classId),
                 classDetail: action.payload
+            }
+
+        case CREATE_CLASS_SUCCESS:
+            return {
+                ...state,
+                msg: action.type,
+                classList: action.payload
             }
         case DELETE_PAPER_SUCCESS:
             return {
@@ -279,7 +287,7 @@ export function getTestList() {
     return dispatch => {
         axios.get('/api/teacher/testList')
             .then(res => {
-                if ((res.status == 200 || res.status == 304)&& res.data.errno === 0) {
+                if ((res.status == 200 || res.status == 304) && res.data.errno === 0) {
                     // console.log(res.data.data,'res.data.data')
                     dispatch(getSuccess(res.data.data, 'GET_TEST_SUCCESS', '获取列表成功'))
                 } else {
@@ -297,6 +305,19 @@ export function dispatchTest(postdata) {
                 if ((res.status == 200 || res.status == 304) && res.data.errno === 0) {
                     // console.log(postdata, 'postdata')
                     dispatch(getSuccess(res.data.data, 'DISPATCH_SUCCESS', '派发试卷成功'))
+                } else {
+                    dispatch(errorMsg(res.data.message))
+                }
+            })
+    }
+}
+
+export function createClass(postdata) {
+    return dispatch => {
+        axios.post('/api/teacher/createClass', postdata)
+            .then(res => {
+                if (res.status == 200 && res.data.errno === 0) {
+                    dispatch(postSuccess(res.data.data, 'CREATE_CLASS_SUCCESS', '新增课堂成功'))
                 } else {
                     dispatch(errorMsg(res.data.message))
                 }
@@ -331,8 +352,8 @@ export function getClassName() {
 export function getClassDetail(postdata) {
     return dispatch => {
         axios.post('/api/teacher/classDetail', {
-            classId: postdata.classId
-        })
+                classId: postdata.classId
+            })
             .then(res => {
                 if ((res.status == 200 || res.status == 304) && res.data.errno === 0) {
                     console.log(postdata, 'postdata')
@@ -399,8 +420,8 @@ export function getPaperDetail(paperId) {
     // console.log(paperId, 'paperid')
     return dispatch => {
         axios.post('/api/teacher/paperList/paper', {
-            paperId: paperId
-        })
+                paperId: paperId
+            })
             .then(res => {
                 if (res.status == 200 && res.data.errno === 0) {
                     let data = {
