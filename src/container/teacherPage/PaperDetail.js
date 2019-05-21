@@ -3,14 +3,15 @@ import React from 'react'
 import { Input, Button } from 'antd'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { getPaperDetail, getAllQue } from '../../redux/teacher.redux'
+import { getPaperDetail, getAllQue, showIntelligentModal } from '../../redux/teacher.redux'
 import EditModal from '../../component/modal/editModal'
+import IntelligentModal from '../../component/modal/intelligentModal'
 import QueTable from '../../component/table/queTable';
 import SelectClass from '../../component/modal/selectClass';
 
 @connect(
     state => state.teacher,
-    { getPaperDetail, getAllQue }
+    { getPaperDetail, getAllQue, showIntelligentModal }
 )
 class PaperDetail extends React.Component {
     constructor(props) {
@@ -36,10 +37,14 @@ class PaperDetail extends React.Component {
         })
     }
 
-    handleAddQue() {
-        this.props.getAllQue({ paperId: this.state.paperId })
+    handleAddQue(type) {
+        if (type == 'Manual') {
+            this.props.getAllQue({ paperId: this.state.paperId })
+        } else {
+            this.props.showIntelligentModal(true)
+        }
     }
- 
+
 
     render() {
         const path = this.props.location.pathname
@@ -48,10 +53,12 @@ class PaperDetail extends React.Component {
         return (
             <div style={ { margin: 20 } }>
                 { redirect && redirect !== path ? <Redirect to={ this.props.redirectTo }></Redirect> : null }
-                <Button onClick={ this.handleAddQue } style={ { float: 'left', zIndex: '1' ,margin:'10px'} }>添加题目</Button>
+                <Button onClick={ ()=>this.handleAddQue('Manual') } style={ { float: 'left', zIndex: '1', margin: '10px' } }>人工组卷</Button>
+                <Button onClick={ ()=>this.handleAddQue('intelligent') } style={ { float: 'left', zIndex: '1', margin: '10px' } }>智能组卷</Button>
                 <SelectClass></SelectClass>
                 <QueTable id={ this.state.paperId }></QueTable>
                 <EditModal></EditModal>
+                <IntelligentModal></IntelligentModal>
             </div>
         )
     }

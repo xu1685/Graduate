@@ -47,8 +47,11 @@ class Class extends React.Component{
                                                 {/* <Radio.Button onClick={ () => this.deletePaper(v.paperId)}>删除</Radio.Button> */}
                                             </Radio.Group> }
                                     >
-                                        <h4>《{ v.className }》</h4>
-                                        <p>试卷描述</p>
+                                        <h4 style={{textAlign:'center',
+                                        marginTop:'20px',
+                                        fontWeight:'bold',
+                                        color:'rgba(23, 23, 23, 0.85)'}}>{ v.className }</h4>
+                                        
                                     </Card>
                                 </Col>) : null)
                         )

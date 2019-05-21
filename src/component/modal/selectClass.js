@@ -80,7 +80,7 @@ class SelectClass extends React.Component {
                 >派发</Button>
                 <Modal
                     visible={ visible }
-                    title="Title"
+                    title="派发试卷"
                     onOk={ this.handleOk }
                     onCancel={ this.handleCancel }
                     footer={ [

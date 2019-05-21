@@ -91,10 +91,10 @@ class UploadClass extends React.Component {
                 <Button
                     // style={ { float: 'left', zIndex: '1', margin: '10px' } }
                     onClick={ this.showModal }
-                >新增课堂</Button>
+                >课堂导入</Button>
                 <Modal
                     visible={ visible }
-                    title="Title"
+                    title="上传班级信息"
                     onOk={ this.handleOk }
                     onCancel={ this.handleCancel }
                     footer={ [
@@ -108,7 +108,7 @@ class UploadClass extends React.Component {
                         accept='.xlsx, .xls'
                         beforeUpload={ function () { return false; } }
                         onChange={ this.uploadFilesChange }
-                        showUploadList={ false }>
+                        showUploadList={ true }>
                         <p className="ant-upload-drag-icon">
                             <Icon type="inbox" />
                         </p>

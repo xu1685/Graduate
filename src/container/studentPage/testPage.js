@@ -106,7 +106,7 @@ class TestPage extends React.Component {
         return (
             <div style={ { margin: 20 } }>
                 { redirect && redirect !== path ? <Redirect to={ this.props.redirectTo }></Redirect> : null }
-                <h2>testdetailPage</h2>
+                {/* <h2>testdetailPage</h2> */}
                 <Button onClick={this.handleSubmit}>提交</Button>
                 { queData[currentQue - 1] ? (
                     <div style={ { background: '#ECECEC', padding: '30px' } }>

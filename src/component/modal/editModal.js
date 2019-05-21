@@ -91,7 +91,7 @@ class EditModal extends React.Component {
         return (
             <div>
                 <Modal
-                    title="Basic Modal"
+                    title="编辑题目"
                     visible={ this.props.showModal }
                     onOk={ this.handleOk }
                     onCancel={ this.handleCancel }

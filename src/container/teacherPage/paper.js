@@ -43,6 +43,23 @@ class Paper extends React.Component {
         const path = this.props.location.pathname
         const redirect = this.props.redirectTo
         console.log('props', this.props)
+
+        let paperList = this.props.paperList
+        for(let i=0;i<paperList.length;i++){
+            if(typeof paperList[i].questionIdarr != 'string'){
+                paperList[i].questionIdarr = ''
+            }
+            paperList[i].queLength = paperList[i].questionIdarr.length
+            let date = new Date(paperList[i].createtime)
+            let Str=date.getFullYear() + '-' + 
+            ((date.getMonth() + 1).toString().length==1?'0'+(date.getMonth()+1):date.getMonth()+1) + '-' + 
+            (date.getDate().toString().length==1?'0'+date.getDate():date.getDate() ) + ' ' + 
+            (date.getHours().toString().length==1?'0'+date.getHours():date.getHours() )+ ':' + 
+            (date.getMinutes().toString().length==1?'0'+date.getMinutes():date.getMinutes())+ ':' + 
+            (date.getSeconds().toString().length==1?'0'+date.getSeconds():date.getSeconds()); 
+            paperList[i].time = Str
+        }
+
         return (
             <div style={ { margin: 20 } }>
                 { redirect && redirect !== path ? <Redirect to={ this.props.redirectTo }></Redirect> : null }
@@ -50,8 +67,8 @@ class Paper extends React.Component {
                 <CreatePaperForm></CreatePaperForm>
                 {/* card列表 */ }
                 <Row gutter={ 16 }>
-                    { (this.props.paperList) ?
-                        (this.props.paperList.map((v, index) => (
+                    { (paperList) ?
+                        (paperList.map((v, index) => (
                             v ?
                                 (<Col span={ 6 } key={ v.paperId }>
                                     <Card
@@ -65,8 +82,12 @@ class Paper extends React.Component {
                                                 <Radio.Button onClick={ () => this.deletePaper(v.paperId)}>删除</Radio.Button>
                                             </Radio.Group> }
                                     >
-                                        <h4>《{ v.paperName }》</h4>
-                                        <p>试卷描述</p>
+                                        <h3 style={{textAlign:'center',
+                                        marginTop:'10px',
+                                        fontWeight:'bold',
+                                        color:'rgba(23, 23, 23, 0.85)'}}>{ v.paperName }</h3>
+                                        <p style={{marginTop:'20px'}}>共有{v.queLength}道题目</p>
+                                        <p style={{marginTop:'-10px'}}>{v.time}</p>
                                     </Card>
                                 </Col>) : null)
                         )

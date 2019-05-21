@@ -15,6 +15,7 @@ const UPDATE_QUE_SUCCESS = 'UPDATE_QUE_SUCCESS'
 const UPDATE_PAPER_SUCCESS = 'UPDATE_PAPER_SUCCESS'
 const GET_PAPER_DETAIL_SUCCESS = 'GET_PAPER_DETAIL_SUCCESS'
 const GET_ALLQUE_SUCCESS = 'GET_ALLQUE_SUCCESS'
+const GET_QUELIST_SUCCESS = 'GET_QUELIST_SUCCESS'
 const GET_ALLTAGS_SUCCESS = 'GET_ALLTAGS_SUCCESS'
 const CREATE_CLASS_SUCCESS = 'CREATE_QUE_SUCCESS'
 const GET_CLASS_SUCCESS = 'GET_CLASS_SUCCESS'
@@ -24,6 +25,7 @@ const DISPATCH_SUCCESS = 'DISPATCH_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 
 const OPEN_MODAL = 'OPEN_MODAL'
+const INTELLIGENT_MODAL = 'INTELLIGENT_MODAL'
 const POSTDATA = 'POSTDATA'
 // const LOAD_DATA = 'LOAD_DATA'
 const initState = {
@@ -43,7 +45,10 @@ const initState = {
     isAllQue: false,
     showModal: false,
     postdata: {},
-    loading: false
+    loading: true,
+    loadQue:true,
+    showPaperModal: false,
+    intelligentData:[]
 }
 notification.config({
     duration: 2,
@@ -66,6 +71,12 @@ export function teacher(state = initState, action) {
                 ...state,
                 msg: action.type,
                 showModal: action.payload
+            }
+        case INTELLIGENT_MODAL:
+            return {
+                ...state,
+                msg: action.type,
+                showPaperModal: action.payload
             }
         case POSTDATA:
             return {
@@ -166,6 +177,14 @@ export function teacher(state = initState, action) {
                 queList: action.payload,
                 isAllQue: true,
             }
+        case GET_QUELIST_SUCCESS:
+            return {
+                ...state,
+                msg: action.type,
+                nowPaperId: action.payload.paperId,
+                queList: action.payload,
+                loadQue:false
+            }
         case CREATE_QUE_SUCCESS:
             return {
                 ...state,
@@ -238,6 +257,14 @@ function errorMsg(msg) {
     return {
         msg,
         type: ERROR_MSG
+    }
+}
+
+export function showIntelligentModal(showModal) {
+    console.log(showModal)
+    return {
+        type: INTELLIGENT_MODAL,
+        payload: showModal
     }
 }
 
@@ -451,7 +478,7 @@ export function deletePaper(paperId) {
         })
     }
 }
-export function getAllQue(postdata) {
+export function getAllQue(postdata,type) {
     return dispatch => {
         axios.post('/api/teacher/allQue', postdata)
             .then(res => {
@@ -460,7 +487,11 @@ export function getAllQue(postdata) {
                         listData: res.data.data,
                         paperId: postdata.paperId
                     }
-                    dispatch(postSuccess(data, 'GET_ALLQUE_SUCCESS', '成功获取题目'))
+                    if (type=='intelligent') {
+                        dispatch(postSuccess(data, 'GET_QUELIST_SUCCESS', '成功获取题目'))
+                    } else {
+                        dispatch(postSuccess(data, 'GET_ALLQUE_SUCCESS', '成功获取题目'))
+                    }
                 } else {
                     dispatch(errorMsg(res.data.message))
                 }
