@@ -40,7 +40,6 @@ class Class extends React.Component{
                                         style={ { height: 165, marginTop: 20, minWidth: 130 } }
                                         size="small"
                                         title={ index }
-                                        // extra={ <Button onClick={ () => this.gotoDetail(v.paperId) }>查看</Button> }
                                         extra={
                                             <Radio.Group size="small">
                                                 <Radio.Button onClick={ () => this.props.getClassDetail({classId:v.classId})}>查看</Radio.Button>

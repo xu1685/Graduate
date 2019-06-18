@@ -30,7 +30,6 @@ class QueTable extends React.Component {
         // this.edit = this.edit.bind(this)
     }
     componentWillReceiveProps(nextProps) {
-        // console.log('componentWillReceiveProps',nextProps)
         this.setState({ resData: nextProps.queList.listData })
     }
     componentWillMount() {
